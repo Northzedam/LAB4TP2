@@ -45,16 +45,32 @@ const request = require("request-promise"),
                   
               //});
 
+              var sql = "INSERT INTO pais (codigoPais, nombrePais, capitalPais, region, poblacion, latitud, longitud) VALUES ('"+datos.codigoPais+"','"+datos.nombrePais+"','"+datos.capitalPais+"','"+datos.region+"','"+datos.poblacion+"','"+datos.latitud+"','"+datos.longitud+"')";
+              var sqlUp ="UPDATE  pais SET codigoPais='"+datos.codigoPais+"', nombrePais='"+datos.nombrePais+"', capitalPais='"+datos.capitalPais+"', region='"+datos.region+"', poblacion='"+datos.poblacion+"', latitud='"+datos.latitud+"', longitud='"+datos.longitud+"' WHERE codigoPais = '"+datos.codigoPais+"' ";                                                                                                           // "54, argentina", "capitalPais", "region", "100000", "1234", "12345"
+               var sqlSel="SELECT codigoPais FROM pais WHERE codigoPais = '"+datos.codigoPais+"' ";
+            
+               con.query(sqlSel, function (err, result) {
+                var res =[];
+                res=result;
+                console.log(res.length);
+                 if (res.codigoPais==datos.codigoPais){
+                   con.query(sqlUp, function (err, result){
+                    if(err) throw err;
+                   });      
+                   console.log( result,'result');
+          
+                   } 
+                   else{
+                     con.query(sql, function (err, result){
+                       if(err) throw err;
+                     });      
+                     console.log("1 record insert");
+            
+                   }
+             });
+             });
 
-                var sql = "INSERT INTO pais (codigoPais, nombrePais, capitalPais, region, poblacion, latitud, longitud) VALUES ('"+datos.codigoPais+"','"+datos.nombrePais+"','"+datos.capitalPais+"','"+datos.region+"','"+datos.poblacion+"','"+datos.latitud+"','"+datos.longitud+"')";
-                                                                                                                            // "54, argentina", "capitalPais", "region", "100000", "1234", "12345"
-                con.query(sql, function (err, result) {
-                    if (err) throw err;
-                    console.log("1 record inserted");
-                });
-                });
-
-            })
+         })
         }).catch(function(err){
           console.log("no hay datos");
         });
