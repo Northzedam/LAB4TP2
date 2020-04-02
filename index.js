@@ -1,8 +1,6 @@
 
 let paises = new Array();
 
-
-
 const request = require("request-promise"),
   RUTA = "https://restcountries.eu/rest/v2/callingcode/";
 
@@ -46,13 +44,7 @@ const miPromesa = new Promise((resolve, rejection) => {
 
     });
 
-
-
   }
-
-
-
-
 
 });
 
@@ -100,7 +92,6 @@ miPromesa.then(data => {
             }
           });
   
-  
         }
         else {
           con.query(sqlUp, function (err, result) {
@@ -112,15 +103,12 @@ miPromesa.then(data => {
             }
           });
   
-  
         }
-
 
       }).catch(function(err){
         console.log(err);
       });
-      
-
+    
     });
 
     //------------------------------------------------------------------------------
